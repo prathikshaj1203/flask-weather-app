@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0;
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+        }
+
+        input[type="text"], input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        input[type="text"] {
+            width: 250px;
+        }
+
+        input[type="submit"] {
+            background-color: #42a5f5;
+            color: white;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .weather-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #ffffffee;
+            display: inline-block;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            max-width: 300px;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            input[type="text"] {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+
+            input[type="submit"] {
+                display: block;
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .weather-box {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌤️ Weather Forecast</h1>
+
+    <form method="POST">
+        <input type="text" name="city" placeholder="Enter city name" required>
+        <input type="submit" value="Get Weather">
+    </form>
+
+    {% if wd %}
+        {% if wd.error %}
+            <div class="weather-box error">
+                {{ wd.error }}
+            </div>
+        {% else %}
+            <div class="weather-box">
+                <h2>{{ wd.city }}</h2>
+                <img src="http://openweathermap.org/img/wn/{{ wd.icon }}@2x.png" alt="weather icon">
+                <p><strong>Temperature:</strong> {{ wd.temperature }} °C</p>
+                <p><strong>Feels Like:</strong> {{ wd.feels_like }} °C</p>
+                <p><strong>Humidity:</strong> {{ wd.humidity }}%</p>
+                <p><strong>Wind Speed:</strong> {{ wd.wind }} m/s</p>
+                <p><strong>Condition:</strong> {{ wd.description }}</p>
+            </div>
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>
